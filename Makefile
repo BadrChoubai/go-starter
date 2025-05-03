@@ -3,7 +3,7 @@ include .env
 # REGISTRY: Where should Docker images be pushed once they're built?
 REGISTRY := $(if $(REGISTRY),$(REGISTRY),localhost:5000)
 
-# VERSION: Application version
+# VERSION: If a git repository is not initialized version will be 0.0.0
 VERSION := $(shell [ -d .git ] && git describe --tags --always --dirty)
 VERSION := $(if $(VERSION),$(VERSION),0.0.0)
 # OS: Used internally. Users should pass GOOS and/or GOARCH.
@@ -24,12 +24,12 @@ all:
 		-f Dockerfile .
 
 run: # @HELP run the application image locally with docker compose
-run: all
+run:
 	DOCKER_IMAGE=$(IMAGE_NAME) \
 	REGISTRY=$(REGISTRY) \
 	IMAGE_NAME=$(IMAGE_NAME) IMAGE_TAG=$(IMAGE_TAG) \
 	ENVIRONMENT=docker-compose \
-		docker compose up
+		docker compose up --build
 
 release: # @HELP creates new release for TAG
 	GITHUB_TOKEN=$(GITHUB_TOKEN) CR_PAT=$(GITHUB_TOKEN) \
