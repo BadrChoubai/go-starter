@@ -3,7 +3,7 @@
 This is a template codebase for creating go projects, with a Makefile driven
 development workflow.
 
-## Configuration Variables
+### Configuration Variables
 
 These variables can be overridden using an `.env` file or passed as environment variables when invoking `make`.
 
