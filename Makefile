@@ -19,12 +19,12 @@ all: # @HELP builds the docker image for our application
 all:
 	docker build \
 		--progress=plain \
-		--build-arg OS=$(OS) --build-arg ARCH=$(ARCH) \
+		--build-arg OS=$(OS) \
+		--build-arg ARCH=$(ARCH) \
 		-t $(REGISTRY)/$(IMAGE_NAME) \
 		-f Dockerfile .
 
 run: # @HELP run the application image locally with docker compose
-run:
 	DOCKER_IMAGE=$(IMAGE_NAME) \
 	REGISTRY=$(REGISTRY) \
 	IMAGE_NAME=$(IMAGE_NAME) IMAGE_TAG=$(IMAGE_TAG) \
@@ -65,8 +65,9 @@ help: # @HELP prints this message
 
 help-config: # @HELP Makefile configuration 
 	@printf "===> CONFIG\n"
-	@grep -hE '^# *[A-Z_]+: ' $(MAKEFILE_LIST) \
-		| sed -E 's/^# *([A-Z_]+): (.*)/  \1: \2/'
+	@grep -HE '^# *[A-Z_]+: ' $(MAKEFILE_LIST) \
+		| sed -E 's|^([^:]+):# *([A-Z_]+): (.*)|  \2: \3  [\1]|'
+
 
 version:
 	@echo $(VERSION)
