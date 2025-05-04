@@ -10,8 +10,11 @@
 !LICENSE
 
 !Makefile
+!Dockerfile
+!compose.yaml
 
 !.goreleaser.yaml
+!Dockerfile.goreleaser
 !.golangci.yml
 
 

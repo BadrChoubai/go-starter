@@ -1,0 +1,3 @@
+FROM scratch
+ENTRYPOINT ["/greeter"]
+COPY greeter /

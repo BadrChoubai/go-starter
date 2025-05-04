@@ -1,0 +1,8 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${DOCKER_IMAGE}-${ENVIRONMENT}
+    image: "${REGISTRY}/${DOCKER_IMAGE}"
+    working_dir: /root
